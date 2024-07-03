@@ -16,7 +16,7 @@ Installing
 
 ```bash
 
-    pip install django-baker
+    pip install git+https://github.com/realistis/django-baker2
 ```
 Add 'django_baker' to INSTALLED_APPS
 
