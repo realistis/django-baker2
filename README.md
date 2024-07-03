@@ -16,9 +16,9 @@ If you need to iterate, add models and test your logic while you test the client
 # Limitations
 
 Each time you bake after adding a new model, some files are not rewritten and must be changed manually:
-- __init__.py in urls/
-- __init__.py in views/
-- forms.py
+- `__init__.py` in urls/
+- `__init__.py` in views/
+- `forms.py`
 
 Or you can decide to delete everything to regenerate the files, but you will need to tweak them again (url-> re_path, see below).
 
@@ -27,7 +27,7 @@ Django-Baker is an old project, it might break here and there with Django update
 Installing
 ----------
 
-You must have already installed a virtual env, with Django (testd on v4).
+You must have already installed a virtual env, with Django (tested on Django 4).
 
 This tool uses `smart_text` that is now replaced/renamed to `smart_str`, so in `settings.py` you need to add:
 ```python
