@@ -15,6 +15,13 @@ If you need to iterate, add models and test your logic while you test the client
 
 # Limitations
 
+Each time you bake after adding a new model, some files are not rewritten and must be changed manually:
+- __init__.py in urls/
+- __init__.py in views/
+- forms.py
+
+Or you can decide to delete everything to regenerate the files, but you will need to tweak them again (url-> re_path, see below).
+
 Django-Baker is an old project, it might break here and there with Django updates. Please search on internet first, then write a issue with what you tried. If you find a fix, don't hesitate to fork and make a pull request.
 
 Installing
