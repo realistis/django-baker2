@@ -10,6 +10,12 @@ Optionally you may specify which models in an app to bake if you'd rather not ge
 
 You can override any of the template files that are used in the 'baking' process in the same way that you would override any third party template.  Just create a django_baker folder inside your project's main templates directory and create a file with the same name as any of the 9 files you wish to override, which are: detail.html, create.html, update.html, list.html, delete.html, views, urls, forms, admin, base, __init__urls, __init__views.  Hopefully their names are self explanatory.
 
+# Why?
+If you need to iterate, add models and test your logic while you test the client screens, Django-Baker will help you. It ignores already generated files by default, it only adds new files for added models.
+
+# Limitations
+
+Django-Baker is an old project, it might break here and there with Django updates. Please search on internet first, then write a issue with what you tried. If you find a fix, don't hesitate to fork and make a pull request.
 
 Installing
 ----------
@@ -49,29 +55,39 @@ This will generate files for all of the models in both of the apps.  You can ove
 Finally you simply need to add one or more urlpattern to your project's URLconf.
 
 ```bash
-    (r'^pastries/', include('pastries.urls')),
+    path('pastries/', include('pastries.urls')),
 ```
 
-will result in the following url schema:
+And in each `pastries/urls/<model>_urls.py` and `pastries/urls/__init__.py`, replace `from django.conf.urls import url` with `from django.urls import re_path`, and replace all url() with re_path().
+
+As usual run:
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+It will result in the following url schema:
 
 ```
-    www.tastytreats.com/pastries/tarts
-    www.tastytreats.com/pastries/danishes
+    http://127.0.0.1:8000/pastries/tarts
+    http://127.0.0.1:8000/pastries/danishes
 ```
+Note: Do not use the CamelCase name of the model, but the generated url visible in urlpattern of `pastries/urls/__init__.py`
 
-alternatively you can create multiple urlpatterns to create shorter urls.
+Alternatively you can create multiple urlpatterns to create shorter urls.
 
 ```python
 
-    (r'^tarts/', include('pastries.urls.tart_urls')),
-    (r'^danishes/', include('pastries.urls.danish_urls')),
+    re_path(r'^tarts/', include('pastries.urls.tart_urls')),
+    re_path(r'^danishes/', include('pastries.urls.danish_urls')),
 ```
 
 will result in the following url schema:
 
 ```
-    www.tastytreats.com/tarts
-    www.tastytreats.com/danishes
+    http://127.0.0.1:8000/tarts
+    http://127.0.0.1:8000/danishes
 ```
 
 Views
@@ -164,18 +180,6 @@ You can override this by setting the *search_fields* attribute or you may extend
 
 > ### Note
 > Django Baker will remove 2 files (views.py, urls.py) from each app baked so long as the files are 4 lines or less (the initial size of the files when you run startapp).  This is necessary so they don't conflict with the newly generated views and urls folders.  If the files are greater than 4 lines you will need to remove them yourself.
-
-
-The future of Django Baker
-==========================
-
-Our top 3 todo items are:
-
-1. Allow apps to be baked more than once to account for newly added models.  Right now the default behavior is to only create new files and skip any steps where the file about to be baked already exists.
-2. Automatically generate tests for each app and model
-3. Add tests to Django Baker itself
-
-Pull requests are awesome.
 
 ## License
 
