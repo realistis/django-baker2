@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="m-2"><h4>{% templatetag openblock %}{{ app_label }}{% templatetag closeblock %}</h4></div>
+<div class="m-2"><a class="btn btn-light" href={% templatetag openblock %} url "{{ app_label }}:{{ model_name_slug }}_list" {% templatetag closeblock %}>{{ model_name }}</a></div>
+
+{% endblock %}
