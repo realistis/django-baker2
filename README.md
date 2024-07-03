@@ -15,6 +15,7 @@ Installing
 ----------
 
 You must have already installed a virtual env, with Django (testd on v4).
+
 This tool uses `smart_text` that is now replaced/renamed to `smart_str`, so in `settings.py` you need to add:
 ```python
 import django
@@ -22,6 +23,7 @@ from django.utils.encoding import smart_str
 django.utils.encoding.smart_text = smart_str
 ```
 
+Now you can install this package:
 ```bash
 
     pip install git+https://github.com/realistis/django-baker2
