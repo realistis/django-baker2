@@ -1,6 +1,6 @@
 from django.core.validators import URLValidator
 from django.core.exceptions import FieldDoesNotExist
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.utils.safestring import mark_safe
 
 from functools import partial
@@ -97,7 +97,7 @@ class ExtendedModelAdminMixin(object):
             if not target:
                 return "None"
             return mark_safe(u'<a href="../../%s/%s/%d">%s</a>' % (
-                target._meta.app_label, target._meta.model_name, target.id, smart_text(target)))
+                target._meta.app_label, target._meta.model_name, target.id, smart_str(target)))
 
         if name[:9] == 'url_link_':
             method = partial(url_link, field=name[9:])
